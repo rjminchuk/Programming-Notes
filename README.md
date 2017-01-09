@@ -26,20 +26,26 @@ rem 'Inialize a local git repository from the current directory'
 git init
 ```
 
-#### Add file to git repo
+#### Add file or directory to git repo
 ```sh
-rem 'add a readme.md file to the repository'
-git add README.md
+rem 'add a [file or directory] file to the repository'
+git add [file or directory]
+```
+
+#### View pending changes to branch
+```sh
+git status
 ```
 
 #### Commit Changes
 ```sh
-rem 'commit all adds and changes to the branch'
+rem 'commit --all adds and changes to the branch with a message -m'
 git commit --all -m '[a message]'
 ```
 
 #### Connect a local repository to a remote repository (vso, github).
 ```sh
+rem 'set the remote repository in which to connect your local repo to'
 git remote add origin https://github.com/rjminchuk/Programming-Notes.git
 git push -u origin master
 ```
