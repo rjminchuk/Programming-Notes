@@ -38,20 +38,18 @@ rem 'commit all adds and changes to the branch'
 git commit --all -m '[a message]'
 ```
 
-#### Add an origin to a remote repository (vso, github).
-#### PUSH a Git repository to an Origin  FROM existing repo on local machine.
+#### Connect a local repository to a remote repository (vso, github).
 ```sh
 git remote add origin https://github.com/rjminchuk/Programming-Notes.git
-echo 
 git push -u origin master
 ```
 
 #### Git branch commands
 ```sh
 rem 'create a new branch'
-git checkout -b [name_of_your_new_branch]
+git checkout -b [branch_name]
 rem 'push branch to remote (vso, github)'
-git push origin [name_of_your_new_branch]
+git push origin [branch_name]
 rem 'delete remote branch'
 git push origin --delete [branch_name]
 rem 'clean up branches on your local.'
