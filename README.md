@@ -44,10 +44,19 @@ git remote add origin https://github.com/rjminchuk/Programming-Notes.git
 git push -u origin master
 ```
 
+#### OR Clone a remote repository to your local machine
+```sh
+git clone https://github.com/rjminchuk/Programming-Notes.git
+```
+
 #### Git branch commands
 ```sh
-rem 'create a new branch'
+rem 'view all branches'
+git branch --all
+rem 'create a new branch with -b'
 git checkout -b [branch_name]
+rem 'checkout existing branch'
+git checkout [branch_name]
 rem 'push branch to remote (vso, github)'
 git push origin [branch_name]
 rem 'delete remote branch'
@@ -56,6 +65,12 @@ rem 'clean up branches on your local.'
 git remote prune origin 
 rem 'OR manually delete local branch'
 git branch -d [branch_name]
+```
+
+#### Remove Directory or file from local repository
+```sh
+git rm -r [directory to remove]
+git commit --all -m 'remove [directory to remove]'
 ```
 
 ## VIM Commands
