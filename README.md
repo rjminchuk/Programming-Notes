@@ -20,35 +20,22 @@
 ## GIT Commands
 Following are commands that can be used in creation, configuration, and branching of a git repository.
 
-#### Create a local git repository.
+#### Create a local git repo.
 ```sh
 rem 'Inialize a local git repository from the current directory' 
 git init
 ```
 
-#### Initial git repository setup
-```sh
-echo "# Programming-Notes" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/rjminchuk/Programming-Notes.git
-git push -u origin master
-```
-
 #### Add file to git repo
 ```sh
+rem 'add a readme.md file to the repository'
 git add README.md
 ```
 
 #### Commit Changes
 ```sh
-git commit --all -m 'a message'
-```
-
-#### Push changes to repository
-```sh
-git push -u origin master
+rem 'commit all adds and changes to the branch'
+git commit --all -m '[a message]'
 ```
 
 #### PUSH a Git repository to an Origin (vso, github) FROM existing repo on local machine.
@@ -61,8 +48,14 @@ git push -u origin master
 ```sh
 rem 'create a new branch'
 git checkout -b [name_of_your_new_branch]
+rem 'push branch to remote (vso, github)'
+git push origin [name_of_your_new_branch]
+rem 'delete remote branch'
+git push origin --delete [branch_name]
 rem 'clean up branches on your local.'
-git -prune origin 
+git remote prune origin 
+rem 'OR manually delete local branch'
+git branch -d [branch_name]
 ```
 
 ## VIM Commands
