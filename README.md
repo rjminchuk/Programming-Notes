@@ -38,9 +38,11 @@ rem 'commit all adds and changes to the branch'
 git commit --all -m '[a message]'
 ```
 
-#### PUSH a Git repository to an Origin (vso, github) FROM existing repo on local machine.
+#### Add an origin to a remote repository (vso, github).
+#### PUSH a Git repository to an Origin  FROM existing repo on local machine.
 ```sh
 git remote add origin https://github.com/rjminchuk/Programming-Notes.git
+echo 
 git push -u origin master
 ```
 
