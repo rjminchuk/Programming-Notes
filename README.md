@@ -71,8 +71,11 @@ vim README.md
 ```
 
 Make edits with `Insert`.
+
 Stop editing with `Esc`.
+
 Save edits with `Esc` `:` `w` `Enter`.
+
 Quit without saving `Esc` `:` `q` `!` `Enter`.
 
 
