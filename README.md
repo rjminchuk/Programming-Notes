@@ -1,15 +1,22 @@
 # Programming Notes
 
+---
+
 ## Quotes
+> An opportunity to learn is wasted only by those unwilling to start.
 
-> An opportunity to learn is wasted only by those unwilling to start. -*Rich Minchuk*
 
-## Frameworks VS Design Patterns
+---
 
+## Frameworks VS Design Pattern
 - I like to think of new development as an opportunity to build a framework for interaction between different software layers, using design patterns as the structure of how each layer will interact with one another layer.
 - A framework dictates how to use itself, while a design pattern is used to develop the framework.
 
+
+---
+
 ## OOP Concepts
+
 
 ### Abstract Classes
 - An abstract class might be used to represent the similarities between two different concrete classes.
@@ -22,9 +29,13 @@
 ### Factories
 - A factory can be used to instantiate an object in order to limit instantiation of that object to one place in code.
 
+
+---
+
 ## GIT Commands
 
 Following are commands that can be used in creation, configuration, and branching of a git repository.
+
 
 ### Create a local git repository.
 ```sh
@@ -33,6 +44,7 @@ git init --bare
 rem 'Initialize a local git repository with a name inside a new directory'
 git init --bare [the directory]
 ```
+
 
 ### Initial git repository setup
 ```sh
@@ -44,11 +56,16 @@ git remote add origin https://github.com/rjminchuk/Programming-Notes.git
 git push -u origin master
 ```
 
+
 ### Git repository from existing repo on local.
 ```sh
 git remote add origin https://github.com/rjminchuk/Programming-Notes.git
 git push -u origin master
 ```
 
+
 ### Git branch commands
 git -prune origin 
+
+
+---
