@@ -32,9 +32,7 @@ Following are commands that can be used in creation, configuration, and branchin
 ### Create a local git repository.
 ```sh
 rem 'Inialize a local git repository from the current directory' 
-git init --bare
-rem 'Initialize a local git repository with a name inside a new directory'
-git init --bare [the directory]
+git init
 ```
 
 
