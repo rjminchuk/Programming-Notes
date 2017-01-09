@@ -50,6 +50,11 @@ git remote add origin https://github.com/rjminchuk/Programming-Notes.git
 git push -u origin master
 ```
 
+#### Set an upstream branch for the local branch.
+```sh
+git push --set-upstream origin [local branch]
+```
+
 #### OR Clone a remote repository to your local machine
 ```sh
 git clone https://github.com/rjminchuk/Programming-Notes.git
@@ -70,7 +75,8 @@ git push origin --delete [branch_name]
 rem 'clean up branches on your local.'
 git remote prune origin 
 rem 'OR manually delete local branch'
-git branch -d [branch_name]
+git branch --all
+git branch --delete --force [branch_name ie feature/rich/lpl.9999]
 ```
 
 #### Remove Directory or file from local repository
