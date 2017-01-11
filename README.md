@@ -64,16 +64,22 @@ git clone https://github.com/rjminchuk/Programming-Notes.git
 ```sh
 rem 'view all branches'
 git branch --all
-rem 'create a new branch with -b'
+
+rem 'create a new branch with -b' 
 git checkout -b [branch_name]
+
 rem 'checkout existing branch'
 git checkout [branch_name]
+
 rem 'push branch to remote (vso, github)'
 git push origin [branch_name]
+
 rem 'delete remote branch'
 git push origin --delete [branch_name]
+
 rem 'clean up branches on your local.'
 git remote prune origin 
+
 rem 'OR manually delete local branch'
 git branch --all
 git branch --delete --force [branch_name ie feature/rich/lpl.9999]
