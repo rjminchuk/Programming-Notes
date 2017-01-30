@@ -1,3 +1,4 @@
+# [<< readme.md](README.md) 
 # Visual Studio Code Notes
 
 ## Basic Usage
