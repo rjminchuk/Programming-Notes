@@ -3,7 +3,6 @@
 
 ## Creating a new .Net Core MVC project
 
-Initialize a C# project:
 1) ``[ctrl/command] + ` `` to open terminal
 2) Make a Directory for the new project and navigate to it in terminal.  
 3) Exec `dotnet new`
@@ -17,7 +16,24 @@ forward. [More info here.](https://blogs.msdn.microsoft.com/dotnet/2016/05/23/ch
 - `project.lock.json` - contains information about your project's dependencies to make 
 subsequent `dotnet restore` command faster
 
+## VSCode keybindings for sequential tabbing between open files for windows.
+```js
+[
+    {   "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    },
+    {   "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+    {   "key": "ctrl+w",
+        "command": "workbench.action.closeActiveEditor"
+    }
+]
+```
+
 ## Shortcuts & Commands
  
 - to open terminal: `` [ctrl/command] + `(backtick)``
 - to open output window: ` [ctrl/command] + shift + u ` 
+- pull a tab to the right pane `ctrl + alt + right`
+- pull a tab to the left pane `ctrl + alt + left`
