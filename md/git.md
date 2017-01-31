@@ -1,4 +1,4 @@
-#### [<< ../readme.md](README.md) 
+#### [<< readme.md](../README.md) 
 # GIT Commands
 Following are commands that can be used in creation, configuration, and branching of a git repository.
 

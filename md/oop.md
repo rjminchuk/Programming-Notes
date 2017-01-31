@@ -1,4 +1,4 @@
-#### [<< ../readme.md](README.md) 
+#### [<< readme.md](../README.md) 
 # OOP Concepts
 
 #### Frameworks VS Design Pattern
