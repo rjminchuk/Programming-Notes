@@ -3,15 +3,11 @@
 
 ## Creating a new .Net Core console app
 
-1) ``[ctrl/command] + ` `` to open terminal
-
-2) Make a Directory for the new project and navigate to it in terminal.  
-
-3) Exec `dotnet new`
-
-4) Resolve the build assets by typing `dotnet restore`. 
-
-5) Exec `dotnet run`
+1. ``[ctrl/command] + ` `` to open terminal
+2. Make a Directory for the new project and navigate to it in terminal.  
+3. Exec `dotnet new`
+4. Resolve the build assets by typing `dotnet restore`. 
+5. Exec `dotnet run`
 
 ## Project files explained
 - `[project.json\project.csproj]` - If you are using the MSBuild-based .NET Core Tools, a .csproj project 
