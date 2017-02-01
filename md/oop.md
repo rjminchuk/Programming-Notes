@@ -1,8 +1,6 @@
 #### [<< readme.md](../README.md) 
 # OOP Concepts
 
-# test for rebate
-
 #### Frameworks VS Design Pattern
 - I like to think of new development as an opportunity to build a framework for interaction between different software layers, using design patterns as the structure of how each layer will interact with one another layer.
 - A framework dictates how to use itself, while a design pattern is used to develop the framework.
@@ -17,5 +15,3 @@
 
 #### Factories
 - A factory can be used to limit the instantiation of an object to one place in code. 
-
-> changes for rebase testing.
