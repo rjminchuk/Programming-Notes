@@ -15,3 +15,5 @@
 
 #### Factories
 - A factory can be used to limit the instantiation of an object to one place in code. 
+
+> changes for rebase testing.
