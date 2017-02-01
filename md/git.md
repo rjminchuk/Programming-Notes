@@ -59,7 +59,7 @@ git push origin [branch_name]
 rem 'delete remote branch'
 git push origin --delete [branch_name]
 
-rem 'clean up branches on your local. (not "purge", but "prune")'
+rem 'clean up branches on your local. ("prune" not "purge")'
 git remote prune origin 
 
 rem 'OR manually delete local branch'
