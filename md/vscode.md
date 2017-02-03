@@ -30,12 +30,6 @@ subsequent `dotnet restore` commands faster
 ]
 ```
 
-## VS2015 keybindings for sequential tabbing between open files for windows.
-> tools > options > environment > keyboard
-- search `window.nextdocumentwindow` replace with `ctrl + tab` then click `assign`
-- search `window.previousdocumentwindow` replace with `ctrl + shift + tab` then click `assign`
-- search `window.closedocumentwindow` replace with `ctrl + w` then click `assign`
-
 ## Shortcuts & Commands
 - to open terminal: `` [ctrl/command] + `(backtick)``
 - to open output window: ` [ctrl/command] + shift + u ` 
