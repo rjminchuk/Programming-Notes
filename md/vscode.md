@@ -15,7 +15,7 @@ forward. [More info here.](https://blogs.msdn.microsoft.com/dotnet/2016/05/23/ch
 - `project.lock.json` - contains information about your project's dependencies to make 
 subsequent `dotnet restore` commands faster
 
-## VSCode keybindings for sequential tabbing between open files for windows.
+## VSCode keybindings for sequential tabbing between open files.
 ```js
 [
     {   "key": "ctrl+shift+tab",
@@ -31,7 +31,7 @@ subsequent `dotnet restore` commands faster
 ```
 
 ## Shortcuts & Commands
-- to open terminal: `` [ctrl/command] + `(backtick)``
+- to open terminal: `` ctrl + `(backtick)``
 - to open output window: ` [ctrl/command] + shift + u ` 
 - pull a tab to the right pane `ctrl + alt + right`
 - pull a tab to the left pane `ctrl + alt + left`
