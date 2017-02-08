@@ -47,8 +47,12 @@ git clone https://github.com/rjminchuk/Programming-Notes.git
 rem 'view all branches'
 git branch --all
 
-rem 'create a new branch with -b' 
-git checkout -b [branch_name]
+rem 'create a new branch with -b'
+git checkout [branch_name_to_branch_from]
+git checkout -b [new_branch_name]
+
+rem 'create a new branch with -b from another branch' 
+git checkout -b [new_branch_name] [branch_name_to_branch_from]
 
 rem 'checkout existing branch'
 git checkout [branch_name]
@@ -58,6 +62,17 @@ git push origin [branch_name]
 
 rem 'delete remote branch'
 git push origin --delete [branch_name]
+
+rem 'merge a branch into another branch'
+git checkout [branchToBeMergedInto]
+git merge [branchToMergeFrom]
+
+rem 'merge a branch into another branch with a squash merge'
+git checkout [branchToBeMergedInto]
+git merge --squash [branchToMergeFrom]
+
+rem 'abort a conflicted merge'
+git merge --abort
 
 rem 'clean up branches on your local. ("prune" not "purge")'
 git remote prune origin 
