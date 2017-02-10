@@ -35,3 +35,11 @@ subsequent `dotnet restore` commands faster
 - to open output window: ` [ctrl/command] + shift + u ` 
 - pull a tab to the right pane `ctrl + alt + right`
 - pull a tab to the left pane `ctrl + alt + left`
+
+## Run VSCode from terminal
+- `cmd + shift + p` 
+- `shell command: install...` hit `enter`. 
+- Then restart VSCode.
+```sh
+code [filename.ext]
+```
