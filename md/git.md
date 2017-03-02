@@ -74,6 +74,10 @@ git merge --squash [branchToMergeFrom]
 rem 'abort a conflicted merge'
 git merge --abort
 
+rem 'sift through a conflicted merge'
+git status
+git reset head [file]
+
 rem 'clean up branches on your local. ("prune" not "purge")'
 git remote prune origin 
 
