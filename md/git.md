@@ -2,6 +2,12 @@
 # GIT Commands
 Following are commands that can be used in creation, configuration, and branching of a git repository.
 
+#### Map a computer to a Git Account
+```sh
+git config --global user.email "[email]"
+git config --global user.name "[name]"
+```
+
 #### Create a local git repo.
 ```sh
 rem 'Inialize a local git repository from the current directory' 
