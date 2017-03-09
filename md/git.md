@@ -78,6 +78,9 @@ rem 'sift through a conflicted merge'
 git status
 git reset head [file]
 
+rem 'when remote is not reflecting what is actually on remote'
+git remote update
+
 rem 'clean up branches on your local. ("prune" not "purge")'
 git remote prune origin 
 
