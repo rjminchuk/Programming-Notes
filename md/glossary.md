@@ -3,7 +3,7 @@
 
 ## Package Managers
 
-Terminology_________ | Description
+Terminology_________________ | Description
 --- | ---
 `Bower` | A Package Manager for web files and libraries. IE: HTML, CSS, Images, Utilities like jQuery, and Bootstrap.
 `Brew`, `HomeBrew` | [Homebrew](http://brew.sh) is a Package Manager for `MacOS` that can install neat and necessary things like `OpenSSL` which is required for .Net Core.
@@ -12,7 +12,7 @@ Terminology_________ | Description
 
 ## .Net Core
 
-Terminology_________ | Description
+Terminology_________________ | Description
 --- | ---
 `.Net Core/Runtime` | a general purpose development platform maintained by Microsoft and the .NET community on GitHub. It is cross-platform, supporting Windows, macOS and Linux, and can be used in device, cloud, and embedded/IoT scenarios.
 `ASP.Net Core` | ASP.NET Core is a lean and composable framework for building web and cloud applications. It is different than `ASP.Net` in that it relies on the `.NET Core Runtime`.
@@ -20,7 +20,7 @@ Terminology_________ | Description
 
 ## .Net Framework
 
-Terminology_________ | Description
+Terminology_________________ | Description
 --- | ---
-`.Net Framework` (IE: `.Net 4.X`) | A programming infrastructure created by Microsoft for building, deploying, and running applications and services that use .NET technologies, such as desktop applications and Web services. The .NET Framework contains three major parts: the `Common Language Runtime`, the `Framework Class Library`, `ASP.NET`.
+`.Net Framework`, `.Net 4.X` | A programming infrastructure created by Microsoft for building, deploying, and running applications and services that use .NET technologies, such as desktop applications and Web services. The .NET Framework contains three major parts: the `Common Language Runtime`, the `Framework Class Library`, `ASP.NET`.
 `ASP.Net` | A Microsoft server-side Web technology. ASP.NET takes an object-oriented programming approach to Web page execution. Every element in an ASP.NET page is treated as an object and run on the server. An ASP.NET page gets compiled into an intermediate language by a .NET Common Language Runtime-compliant compiler. Then a JIT compiler turns the intermediate code to native machine code, and that machine code is eventually run on the processor.
