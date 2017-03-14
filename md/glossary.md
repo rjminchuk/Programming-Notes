@@ -3,7 +3,7 @@
 
 ## Package Managers
 
-Term | Description
+Terminology________ | Description
 --- | ---
 `Bower` | A Package Manager for web files and libraries. IE: HTML, CSS, Images, Utilities like jQuery, and Bootstrap.
 `Brew`, `HomeBrew` | [Homebrew](http://brew.sh) is a Package Manager for `MacOS` that can install neat and necessary things like `OpenSSL` which is required for .Net core.
@@ -12,7 +12,7 @@ Term | Description
 
 ## Software Platforms
 
-Term | Description
+Terminology_____________________ | Description
 ------ | ---
 `.Net Core`, `.Net Core Runtime` | a general purpose development platform maintained by Microsoft and the .NET community on GitHub. It is cross-platform, supporting Windows, macOS and Linux, and can be used in device, cloud, and embedded/IoT scenarios.
 `.Net Framework`, `Desktop .Net Framework`, IE: `.Net 4.X` | A programming infrastructure created by Microsoft for building, deploying, and running applications and services that use .NET technologies, such as desktop applications and Web services. The .NET Framework contains three major parts: the `Common Language Runtime`, the `Framework Class Library`, `ASP.NET`.
