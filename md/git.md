@@ -95,6 +95,18 @@ git branch --all
 git branch --delete --force [branch_name ie feature/rich/lpl.9999]
 ```
 
+#### Resolving Push/Sync conflicts.
+If you have committed changes to a local branch and your local branch was not up to date
+with origin, pulling can become an ordeal. Here is how to resolve.
+
+```sh
+git checkout [branchToPush]
+git branch --unset-upstream
+git pull origin [branchToPush]
+git commit -m 'merge'
+git push --set-upstream origin feature/timers.lpl3189
+```
+
 #### Remove Directory or file from local repository
 ```sh
 git rm -r [directory to remove]
