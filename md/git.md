@@ -107,6 +107,14 @@ git commit -m 'merge'
 git push --set-upstream origin feature/timers.lpl3189
 ```
 
+#### Resolving Rebase issue.
+When VS2017 hands on rebase, exec the command below, then go to Sync tab in the 
+Team Explorer and hit pull. Resolve conflicts, commit merge with note "rebase", then push.
+
+```sh
+git rebase --skip
+```
+
 #### Remove Directory or file from local repository
 ```sh
 git rm -r [directory to remove]
