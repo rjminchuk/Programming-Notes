@@ -108,7 +108,7 @@ git push --set-upstream origin feature/timers.lpl3189
 ```
 
 #### Resolving Rebase issue.
-When VS2017 hands on rebase, exec the command below, then go to Sync tab in the 
+When VS2017 hangs on rebase, exec the command below, then go to Sync tab in the 
 Team Explorer and hit pull. Resolve conflicts, commit merge with note "rebase", then push.
 
 ```sh
