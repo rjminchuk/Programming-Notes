@@ -120,3 +120,22 @@ git rebase --skip
 git rm -r [directory to remove]
 git commit --all -m 'remove [directory to remove]'
 ```
+
+#### Stash changes for later  
+```sh
+git status
+git stash
+git status
+```
+
+#### Un-Stash changes on branch
+```sh
+git branch --all
+git checkout [branch_name]
+git stash apply
+```
+
+#### Create a branch from a stash
+```sh
+git stash branch [feature/rich/BranchName]
+```
