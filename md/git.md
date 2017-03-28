@@ -139,3 +139,8 @@ git stash apply
 ```sh
 git stash branch [feature/rich/BranchName]
 ```
+
+#### drop the top stashed change
+```sh
+git stash drop
+```
