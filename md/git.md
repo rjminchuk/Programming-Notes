@@ -135,6 +135,12 @@ git checkout [branch_name]
 git stash apply
 ```
 
+#### Un-Stash specific changes
+```sh
+git stash list
+git stash apply stash@{0}
+```
+
 #### Create a branch from a stash
 ```sh
 git stash branch [feature/rich/BranchName]
