@@ -150,3 +150,9 @@ git stash branch [feature/rich/BranchName]
 ```sh
 git stash drop
 ```
+
+#### undo a commit
+[Undoing a commit is a little scary if you don't know how it works...](https://stackoverflow.com/questions/927358/how-do-i-undo-the-last-commits-in-git)
+```sh
+git reset --soft HEAD~1
+```
