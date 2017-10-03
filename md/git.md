@@ -121,26 +121,47 @@ git rm -r [directory to remove]
 git commit --all -m 'remove [directory to remove]'
 ```
 
-#### Stash changes for later  
+#### Stash commands
+Stash changes for later  
 ```sh
-git status
 git stash
-git status
 ```
 
-#### Un-Stash changes on branch
+View all stashed changes
 ```sh
-git branch --all
-git checkout [branch_name]
+git stash list
+```
+
+Un-Stash changes on current branch
+```sh
 git stash apply
 ```
 
-#### Create a branch from a stash
+Un-Stash specific changes
 ```sh
-git stash branch [feature/rich/BranchName]
+git stash list
+git stash apply stash@{0}
 ```
 
-#### drop the top stashed change
+drop the top stashed change
 ```sh
 git stash drop
+```
+
+drop (clear) all stashes
+```sh 
+git stash clear
+```
+
+#### undo a commit
+[Undoing a commit is a little scary if you don't know how it works...](https://stackoverflow.com/questions/927358/how-do-i-undo-the-last-commits-in-git)
+
+use git log to copy your commit notes
+```sh
+git log
+```
+
+reverts the last commit. can be run sequentially for undoing and staging multiple commits
+```sh
+git reset --soft HEAD~
 ```
