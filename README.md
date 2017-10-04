@@ -2,6 +2,7 @@
 
 Markdown | Description
 --- | ---
+[CICD](md/.net-core-CICD.md) | Continuous Integration and Deployment with .net Core 1.1
 [Glossary](md/glossary.md) | Glossary of platform and development terms
 [Git](md/git.md) | Git Commands
 [.Net Core](md/.net-core.md) | Notes about setting up .Net Core
