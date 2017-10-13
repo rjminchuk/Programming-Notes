@@ -37,6 +37,10 @@ you can't define private signatures of methods because the class that implements
 # Computer Science Fundamentals
 
 - `UML`: Unified Modeling Language. A general-purpose, developmental, modeling language, that is intended to provide a standard way to visualize the design of a system.
+- `Joel Spolsky`: [Good CS articles from the late 90s and early 00s](https://www.joelonsoftware.com/category/reading-lists/top-10/)
+   - leaky abstractions
+   - character encoding
+   - [](https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/)
 
 # SOLID Principles
 
@@ -55,6 +59,91 @@ Software entities should be opened for extension, but closed for modification.
 adding additional behavior is best handled by adding new classes that have no dependencies yet.
 
 There are three approaches to this:
-1. parameter - 
-2. inheritance -
-3. composition - strategy pattern
+1. parameter - Allow client to control behavior specifics via a prameter.
+
+```c
+public decimal CalculatePrice(CalculatorTypeEnum calcType, List<OrderItems> itmes) {
+    decimal ttl = 0;
+    swith (calcType)
+        case: BogoCalculator
+            ttl += ((int)i.Qty / 2) * i.Amt;
+            ttl += (i.Qty % 2) * i.Amt;
+            break;
+        case: ....
+    }
+    return ttl;
+}
+```
+
+2. inheritance / template pattern - child types override behavoir of a base class or interface
+3. composition / strategy pattern 
+   - Use smaller classes that implement an interface to abstract away the logic of each operation. "Creating an abstraction" is like coming up with an interface.
+
+```c
+interface ICalculator
+decimal calculatePrice(OrderItem i)
+
+// standard price calculator
+public class StandardCalculator : ICalculator {
+    public decimal calculatePrice(OrderItem i) {
+        return i.Qty * i.Amt;
+    }
+}
+
+// takes 10% off
+public class SaleCalculator : ICalculator {
+    public decimal calculatePrice(OrderItem i) {
+        return i.Qty * i.Amt * .9;
+    }
+}
+
+public class BogoCalculator : ICalculator {
+    public decimal calculatePrice(OrderItem i) {
+        decimal ttl = 0;
+        ttl += ((int)i.Qty / 2) * i.Amt;
+        ttl += (i.Qty % 2) * i.Amt;
+        return ttl;
+    }
+}
+
+public class OrderItem {
+    public string Nm;
+    public decimal Amt;
+    public int Qty;
+}
+
+public class Cart {
+    private ICalculator _calc; 
+    public Cart(ICalculator calc) { 
+        _calc = calc; 
+    }
+    pubblic string Checkout(list<OrderItem> items) {
+        decimal total = 0;
+        foreach (OrderItem item in items)
+            total += _calc.calculatePrice(item);
+        return total;
+    }
+}
+
+public static Main(string[] args) {
+    Console.WriteLine("1: Standard Calculator 2: Sale Calculator 3: BOGO Calculator");
+    string s = Console.ReadLine();
+
+    Cart c;
+    if (s == "1") 
+        c = new Cart(new StandardCalculator());
+    else if (s == "2")
+        c = new Cart(new SaleCalculator());
+    else 
+        c = new Cart(new BogoCalculator());
+
+    List<OrderItems> items = new List<OrderItem>() { 
+        new OrderItem() { Nm = "item1", Amt = 4.29, Qty = 2 },
+        new OrderItem() { Nm = "item2", Amt = 9.33, Qty = 1 },
+        new OrderItem() { Nm = "item3", Amt = 7.35, Qty = 3 }
+    };
+
+    string result = c.CheckOut(items);
+    console.WriteLine(result);
+}
+```
