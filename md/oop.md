@@ -2,9 +2,9 @@
 # OOP Concepts
 
 ## three pillars of oop
-- Encapsulation - key pillar. helps hide complexity. classes are one way to achieve encapsulation. methods are another way to encapsulate logic. Encapsulation is all about hiding complexity and building models that logically group together functionality.
-- Inheritance - 
-- Polymorphism
+
+### Encapsulation 
+Helps hide complexity. Classes are one way to achieve encapsulation. methods are another way to encapsulate logic. Encapsulation is all about hiding complexity and building models that logically group together functionality. IE: an Abstraction.
 
 ### Inheritance
 You can only specify a single base class after the collon, but the inheritance chain is unlimmited. 
@@ -22,15 +22,12 @@ The virtual keyword allows a derived class to override the base method if the ba
 All Classes inherit from Object and object makes ToString() available to be overriden by declaring it virtual.
 
 ### Abstract Classes
-Abstract classes cannot be instantiated. Abstract classes need to be inherited.
-You can override an abstract class's method by using the keyword virtual in its method signature.
-Abstract methods define no body of code to execute and must have an implementation provided by a concrete class. A concrete class defines the concrete implementation of an abstract class and defines all abstract members. You can only instantiate a concrete type.
+Abstract classes cannot be instantiated. Abstract classes need to be inherited. You can override an abstract class's method by using the keyword virtual in its method signature. Abstract methods define no body of code to execute and must have an implementation provided by a concrete class. A concrete class defines the concrete implementation of an abstract class and defines all abstract members. You can only instantiate a concrete type.
 - An abstract class might be used to represent the similarities between two different concrete classes.
 - An abstract class cannot be instatiated but it's members may be implemented and extended.
 
 ### Interfaces
-An interface defines the signatures of methods, events and properies. An interface is a type just like a class, struct, and delegates are types. A Type can implement as many interfaces as it needs.
-you can't define private signatures of methods because the class that implements an interface must have access to the methods of properties.
+An interface defines the signatures of methods, events and properies. An interface is a type just like a class, struct, and delegates are types. A Type can implement as many interfaces as it needs. You can't define private signatures of methods because the class that implements an interface must have access to the methods of properties. 
 - An interface can be used to represent similar functionalities across concrete classes that are very much dissimilar.
 - An interface can be implemented.
 
@@ -40,7 +37,7 @@ you can't define private signatures of methods because the class that implements
 - `Joel Spolsky`: [Good CS articles from the late 90s and early 00s](https://www.joelonsoftware.com/category/reading-lists/top-10/)
    - leaky abstractions
    - character encoding
-   - [](https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/)
+   - [12 steps to better code](https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/)
 
 # SOLID Principles
 
