@@ -146,7 +146,7 @@ public static Main(string[] args) {
 
 ## Liskov Substitution Principle
 
-substypes must be substitutable for their base types
+States that client code (calling code) expects that all implementations of a base class should be interchangeable with the base class. That means that all methods of the base class should be implemented.
 
 <!-- Child clases must not remove behavior from their base class. -->
 
@@ -163,14 +163,18 @@ The Liskov Substitution Principle helps avoid bad abstractions (and avoids Bad C
 
 ### example of a bad code smell
 
+IStaff should abstract away how to print a Staff Member, and should not rely on an external class to implement how each Staff (employee, manager, etc) prints.
+
 ```c
 static class Printer {
-    static PrintManager(Manager m)
-    static PrintEmployee(Employee e)
+    static void PrintManager(Manager m) { ... }
+    static void PrintEmployee(Employee e) { ... }
 } 
 
-class Employee : IStaff { }
-class Manager : IStaff { }
+interface IStaff { public string fullname; ... }
+
+class Employee : IStaff { ... }
+class Manager : IStaff { ... }
 
 class Program() {
     static List<IStaff> _staffers = new List<IStaff>(
@@ -194,21 +198,16 @@ class Program() {
 
 States that client code (calling code) expects that all implementations of a base class should be interchangeable with the base class. That means that all methods of the base class should be implemented.
 
-Tell Don't Ask
+<!-- Tell Don't Ask
 
 - Don't interigate objects for their internals: move behavior to the object
 - tell the object what you want it to do.
 
-Consider refactoring to a new Base Class
+Consider refactoring to a new Base Class -->
 
-- given two classes that share a lot of behavior but are not substitutable
-- create a third class that both can derive from
-- ensure substitutability is retained between each class and the new base.
-
-
+- Given two classes that share a lot of behavior, create a third class (an abstraction) that both can derive from. Ensure substitutability is retained between each class and the new base.
 - Non-substitutable code breaks polymorphism.
-- Client code expects child classes to work in place of their base class
-- fixing substitutability problems with a switch case quickly become a maintenance nightmare and violates the Open / Closed Principle.
+- fixing substitutability problems with a switch case (and not LSP) quickly become a maintenance nightmare and violates the Open / Closed Principle. The more cases you add to your switch, more you realize you need an abstraction.
 
 ## Interface Segregation Principle 
 - ISP can help you create projects or applications that have fewer hidden dependencies and are more cohesive and easier to maintain. 
