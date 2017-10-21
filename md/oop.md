@@ -148,14 +148,12 @@ public static Main(string[] args) {
 
 substypes must be substitutable for their base types
 
-- if it looks like a duck and quacks like a duck, but it needs batteries, you probably have the wrong abstraction.
-
-Child clases must not remove behavior from their base class.
+<!-- Child clases must not remove behavior from their base class. -->
 
 - calling code should not know that there is any difference between a derived type and its base type.
 - the Liskov Substitution Principle suggests that IS-A should be replaced with IS-SUBSTITUTABLE-FOR
 
-Invariants - are things that have to do with the integrity of the model your classes represent. They consist of reasonable assumptions of behavior by client code.
+<!-- Invariants - are things that have to do with the integrity of the model your classes represent. They consist of reasonable assumptions of behavior by client code. -->
 
 ### How do you know you have a LSP issue? 
 
@@ -194,6 +192,8 @@ class Program() {
 
 ### LSP Tips
 
+States that client code (calling code) expects that all implementations of a base class should be interchangeable with the base class. That means that all methods of the base class should be implemented.
+
 Tell Don't Ask
 
 - Don't interigate objects for their internals: move behavior to the object
@@ -206,18 +206,16 @@ Consider refactoring to a new Base Class
 - ensure substitutability is retained between each class and the new base.
 
 
-
 - Non-substitutable code breaks polymorphism.
 - Client code expects child classes to work in place of their base class
 - fixing substitutability problems with a switch case quickly become a maintenance nightmare and violates the Open / Closed Principle.
 
 ## Interface Segregation Principle 
 - ISP can help you create projects or applications that have fewer hidden dependencies and are more cohesive and easier to maintain. 
-- keep interfaces separate to avoid lenghty implementations of the interface. (avoid `throws new NotImplementedException();`)
-- avoid "Fat" interfaces. use small, cohesive interfaces as opposed to fat interfaces.
-- clients should not be forced to depend on methods that they do not use.
+- keep interfaces separate to avoid lenghty implementations of the interface. (avoid leaving behind methods that `throw new NotImplementedException();`)
+- throwing NotImplementedException breaks the Liskov Substitution Principle because any non implemented methods cannot be substituted for their base class methods. I.E.: The clients expects that the entire interface be implemented.
+- avoid "Fat" interfaces (an interface becomes fat when you realize that you don't want to implement all the methods of an interface for your new implementations purposes). Clients should not be forced to depend on methods that they do not use (IE: implement a bunch of methods of an interface they don't need.)
 - The facade pattern lets you take a large set of complex classes and replace them with a much simpler class that offers only the subset or interface that the client actually needs.
-- throwing NotImplementedException breaks the Liskov Substitution Principle because any implementation of a sub class that cannot be substitutable for their base classes when clients expect that the entire interface be implemented.
 - if you find yourself depending on your own Fat interface, then fix with ISP
 - if you find yourself depending on a Fat interface that you do not own, then create a smaller interface using only what you need, then implement that interface using an adapter that implements the full interface.
 
