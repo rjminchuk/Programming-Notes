@@ -212,5 +212,9 @@ Consider refactoring to a new Base Class
 - fixing substitutability problems with a switch case quickly become a maintenance nightmare and violates the Open / Closed Principle.
 
 ## Interface Segregation Principle 
+- ISP can help you create projects or applications that have fewer hidden dependencies and are more cohesive and easier to maintain. 
 - keep interfaces separate to avoid lenghty implementations of the interface. (avoid `throws new NotImplementedException();`)
-- 
+- avoid "Fat" interfaces. use small, cohesive interfaces as opposed to fat interfaces.
+- clients should not be forced to depend on methods that they do not use.
+- The facade pattern lets you take a large set of complex classes and replace them with a much simpler class that offers only the subset or interface that the client actually needs.
+
