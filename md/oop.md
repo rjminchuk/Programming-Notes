@@ -217,4 +217,10 @@ Consider refactoring to a new Base Class
 - avoid "Fat" interfaces. use small, cohesive interfaces as opposed to fat interfaces.
 - clients should not be forced to depend on methods that they do not use.
 - The facade pattern lets you take a large set of complex classes and replace them with a much simpler class that offers only the subset or interface that the client actually needs.
+- throwing NotImplementedException breaks the Liskov Substitution Principle because any implementation of a sub class that cannot be substitutable for their base classes when clients expect that the entire interface be implemented.
+- if you find yourself depending on your own Fat interface, then fix with ISP
+- if you find yourself depending on a Fat interface that you do not own, then create a smaller interface using only what you need, then implement that interface using an adapter that implements the full interface.
 
+## Dependency Inversion Principle
+
+- DIP 
