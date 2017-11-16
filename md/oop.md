@@ -207,7 +207,7 @@ Consider refactoring to a new Base Class -->
 
 - Given two classes that share a lot of behavior, create a third class (an abstraction) that both can derive from. Ensure substitutability is retained between each class and the new base.
 - Non-substitutable code breaks polymorphism.
-- fixing substitutability problems with a switch case (and not LSP) quickly become a maintenance nightmare and violates the Open / Closed Principle. The more cases you add to your switch, more you realize you need an abstraction.
+- fixing substitutability problems with a switch case (and not LSP) quickly become a maintenance nightmare and violates the Open / Closed Principle. The more cases you add to your switch, the more you realize you need an abstraction.
 
 ## Interface Segregation Principle 
 - ISP can help you create projects or applications that have fewer hidden dependencies and are more cohesive and easier to maintain. 
@@ -220,4 +220,81 @@ Consider refactoring to a new Base Class -->
 
 ## Dependency Inversion Principle
 
-- DIP 
+The Dependency Inversion Principle states that High-level modules should not depend on low-level modules, and abstractions should not depend on details, but details shoudl depend on abstractions.
+
+- would you solder a lamp to the electical outlet?
+
+what is a dependency?
+- third party libraries
+- database - wrap in such a way that is not an implicit dependency in your code.
+- file system
+- email
+- web service
+- system resources - clock, ie datetime.now
+- configuration - a file
+- the NEW keyword - limit the number of places you allow your application to instantiate new objects.
+- static methods - any time you add a static method to your code that cannot easily be separated from the calling code.
+- thread.sleep and random - very dificult to write tests for
+
+Traditional programming and dependencies
+- high level modules call low level modules
+- a User Interface depends on 
+  - buisines logic depends on
+    - infrastructure
+    - utility 
+    - data access
+- static methods are used for convenience or as a facade
+- class instantiation / cal stack logic is scattered through all modules
+  - violates the Single Responsibility Principle 
+    - because every class that decides who it's colaborators are (through the use of static methods or use of the new keyword) is now responsible for its actual work but also for who determining who it's working with
+    - these are actually separte responsibilities that the single responsibility principle dictates we should separate into seprate classes.
+
+Class Dependencies:
+- class constructors should require any dependencies the class needs
+  - these are called expicit dependencies
+  - classes that do not have Implicit (or hidden) dependencies
+
+Holywood Principle - "don't call us, we'll call you"
+
+DI types
+- constructor injector 
+    - dependencies are passed in via the consturctor 
+    - explicitly stating what it needs to run properly 
+    - classes are always in a valid state once constructed
+- propery injection (setter injection)
+  - dependencies can be changed at any time during object lifetime
+  - objects may be in an invalid state between construction and setting
+  - less intuitive.
+- parameter injection
+  - flexible
+  - breaking the method signature might be costly
+
+Refactoring
+- extract dependencies into interfaces
+- inject implementations of interfaces into the class being refactored 
+- reduce responsibilities
+
+DIP Smells
+- use of new keyword.
+- use of static methods or properties
+
+where do we instantiate these objects
+- default contsructor
+  - create a default constructor that news up a default implementation of each explicit dependency.
+  - also known as a poor man's IOC
+- main
+  - manually instantiate each object at the start
+
+IOC Containers
+- responsible for object graph instantiation - determines what is going to be used when an interface is called for.
+- init'd at app startup or in config
+- managed interfaces and the implementation to be used are registered with the container
+  - register a specific concrete class to be resolved for an interface
+- dependencies are resolved at app startup or runtime
+
+- examples of IOC containers
+  - microsoft Unity
+  - structureMap
+  - ninject
+  - windsor
+  - funq / munq
