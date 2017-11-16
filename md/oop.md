@@ -298,3 +298,9 @@ IOC Containers
   - ninject
   - windsor
   - funq / munq
+
+Takeaways
+- remove the word new from your classes.
+- be careful with static methods. Don't force high level modules to depend on low level modules through static method calls.
+- use constructor injection to remove implicit dependencies from your functions
+- 
