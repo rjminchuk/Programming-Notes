@@ -16,6 +16,62 @@ jsc tests.js
 ```
 
 ```js
+'use strict';
+
+// clear screen
+for (var i = 0; i < 100; i++) { print(''); }
+
+load('helpers/mockObjects.js'); // load mock objects
+load('helpers/extend.js'); // load utils
+load('helpers/utcDate.js'); // load utils
+
+load('myUtility.js'); // load scripts & tests
+load('myUtility.tests.js');
+
+load('helpers/testSuite.js'); // load test suite code
+
+// init the test suite and execute.
+var TestSuite = TestSuite || {};
+TestSuite.TestSuite = TestSuite.TestSuite || function() { return this; };
+TestSuite.RunSuite = TestSuite.RunSuite || function () { debug('You forgot to include the TestSuite.'); };
+TestSuite.TestSuite(
+    MockObjects.navigator, 
+    MockObjects.window, 
+    MockObjects.document
+).RunSuite();
+```
+
+```js
+'use strict';
+
+var MockObjects = {
+    window: {
+        screen: {
+            width: 375,
+            height: 812
+        },
+        devicePixelRatio: 3
+    },
+    document: 
+    {
+        body: {
+            _attr: undefined,
+            getAttribute: function (attr) {
+                MockObjects.document.body._attr = ' body' + attr;
+                return MockObjects.document.body._attr;
+            },
+            setAttribute: function (attr) {
+                MockObjects.document.body._attr = (MockObjects.document.body._attr || '') + attr;
+            }
+        }
+    },
+    navigator: {
+        userAgent: 'iPhone'
+    }
+};
+```
+
+```js
 // testSuite.js
 var TestSuite = TestSuite || {};
 TestSuite = extend(
