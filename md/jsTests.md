@@ -69,7 +69,7 @@ var MockObjects = {
 ```
 
 ```js
-// testSuite.js
+// helpers/testSuite.js
 var TestSuite = TestSuite || {};
 TestSuite = extend(
     TestSuite, 
@@ -118,7 +118,7 @@ TestSuite = extend(TestSuite, {
 ```
 
 ```js
-// helper/extend.js
+// helpers/extend.js
 // https://gist.github.com/cferdinandi/4f8a0e17921c5b46e6c4
 var extend = function ( defaults, options ) {
     var extended = {};
