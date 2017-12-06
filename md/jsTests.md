@@ -22,9 +22,8 @@ jsc tests.js
 // clear screen
 for (var i = 0; i < 100; i++) { print(''); }
 
-load('helpers/mockObjects.js'); // load mock objects
 load('helpers/extend.js'); // load utils
-load('helpers/utcDate.js'); // load utils
+load('helpers/mockObjects.js'); // load mock objects
 
 load('myUtility.js'); // load scripts & tests
 load('myUtility.tests.js');
@@ -109,7 +108,7 @@ TestSuite = extend(TestSuite, {
     MyUtilityTestPackage: [
         { 
             The_name_of_the_test_function_which_should_be_descriptive: function() {
-                if (!MyUtility.FunctionToTest(TestSuite['dependency'].window) {
+                if (!MyUtility.FunctionToTest(TestSuite['_dependency'].window) {
                     debug(arguments.callee.name);
                 }
             }
