@@ -16,6 +16,7 @@ jsc tests.js
 ```
 
 ```js
+// tests.js
 'use strict';
 
 // clear screen
@@ -34,14 +35,11 @@ load('helpers/testSuite.js'); // load test suite code
 var TestSuite = TestSuite || {};
 TestSuite.TestSuite = TestSuite.TestSuite || function() { return this; };
 TestSuite.RunSuite = TestSuite.RunSuite || function () { debug('You forgot to include the TestSuite.'); };
-TestSuite.TestSuite(
-    MockObjects.navigator, 
-    MockObjects.window, 
-    MockObjects.document
-).RunSuite();
+TestSuite.TestSuite(MockObjects).RunSuite();
 ```
 
 ```js
+// helpers/mockObjects.js
 'use strict';
 
 var MockObjects = {
@@ -111,7 +109,7 @@ TestSuite = extend(TestSuite, {
     MyUtilityTestPackage: [
         { 
             The_name_of_the_test_function_which_should_be_descriptive: function() {
-                if (!MyUtility.FunctionToTest(TestSuite['dependency']) {
+                if (!MyUtility.FunctionToTest(TestSuite['dependency'].window) {
                     debug(arguments.callee.name);
                 }
             }
