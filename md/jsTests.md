@@ -15,26 +15,34 @@ cd wwwroot/js
 jsc tests.js
 ```
 
+or on windows.
+
+```cmd
+cscript tests.js
+```
+
 ```js
-// tests.js
 'use strict';
+
+var tests = '';
+var print = print || function print (msg) { WScript.StdOut.WriteLine(msg); };
+var load = load || function load (file) { tests += new ActiveXObject("Scripting.FileSystemObject").OpenTextFile(file, 1).ReadAll(); };
 
 // clear screen
 for (var i = 0; i < 100; i++) { print(''); }
 
-load('helpers/extend.js'); // load utils
+load('helpers/array.forEach.js'); // load polyfills
 load('helpers/mockObjects.js'); // load mock objects
+load('helpers/extend.js'); // load utils
+load('helpers/utcDate.js'); // load utils
 
-load('myUtility.js'); // load scripts & tests
-load('myUtility.tests.js');
+load('horizn.js'); // load scripts & tests
+load('horizn.tests.js');
 
-load('helpers/testSuite.js'); // load test suite code
+load('helpers/testSuite.js'); // load test suite code, init, and execute.
 
-// init the test suite and execute.
-var TestSuite = TestSuite || {};
-TestSuite.TestSuite = TestSuite.TestSuite || function() { return this; };
-TestSuite.RunSuite = TestSuite.RunSuite || function () { debug('You forgot to include the TestSuite.'); };
-TestSuite.TestSuite(MockObjects).RunSuite();
+// if cscript, eval the loaded code.
+eval(tests);
 ```
 
 ```js
@@ -69,36 +77,44 @@ var MockObjects = {
 ```
 
 ```js
-// helpers/testSuite.js
 var TestSuite = TestSuite || {};
 TestSuite = extend(
     TestSuite, 
     {
         _this: undefined,
-        _dependency: undefined,
-        TestSuite: function(p_dependency) {
+        _dependencies: undefined,
+        _summary_cnt: 0,
+        _summary_passed: 0,
+        TestSuite: function(p_dependencies) {
             TestSuite._this = this;
-            this._dependency = p_dependency;
+            this._dependencies = p_dependencies;
             return this;
         },
         RunSuite: function() {
             for (var pkg in TestSuite) { // all packages in the test suite
-                if (pkg.includes('TestPackage')) { 
+                if (pkg.indexOf('TestPackage') !== -1) { 
                     TestSuite[pkg].forEach(function (tests, indx) { 
                         for (var test in tests) { // all tests in the package
                             if (typeof tests[test] === "function") { 
-                                tests[test](); 
+                                tests[test](TestSuite._dependencies); 
                             }
                         }
                     });
                 }
             }
             print('');
-            print('tests ran');
-            print('');
+            print('tests ran    : ' + TestSuite._summary_cnt);
+            print('tests passed : ' + TestSuite._summary_passed);
+        },
+        AssertEqual: function(a, b) {
+            TestSuite._summary_cnt++;
+            if (a === b) { TestSuite._summary_passed++; } 
+            else { debug(arguments.callee.caller.name); }
         }
     }
 );
+
+TestSuite.TestSuite(MockObjects).RunSuite();
 ```
 
 ```js
@@ -107,14 +123,32 @@ var TestSuite = TestSuite || {};
 TestSuite = extend(TestSuite, {
     MyUtilityTestPackage: [
         { 
-            The_name_of_the_test_function_which_should_be_descriptive: function() {
-                if (!MyUtility.FunctionToTest(TestSuite['_dependency'].window) {
-                    debug(arguments.callee.name);
-                }
+            Brightness_Is_Easy_On_The_Eyes_At_6PM: function(d) {
+                TestSuite.AssertEqual(
+                    MyUtility.EasyEyes.EasyEyes(utcDateMaker(18), Math, d.document), true
+                );
             }
         }
     ]
 });
+```
+
+```js
+// MyUtility.tests.js
+'use strict';
+
+var MyUtility = Horizn || {};
+MyUtility.EasyEyes = MyUtility.EasyEyes || {};
+
+MyUtility.EasyEyes = {
+    EasyEyes: function (p_date, p_math, p_document) {
+        var bodyClasses = p_document.body.getAttribute('class') || '';
+        bodyClasses = bodyClasses.replace(' easyEyes', '');
+        if (p_date.getHours() - 12 >= 6 || p_date.getHours() - 12 < -6) { bodyClasses += ' easyEyes'; }
+        p_document.body.setAttribute('class', bodyClasses);
+        return bodyClasses.indexOf('easyEyes') !== -1;
+    }
+};
 ```
 
 ```js
