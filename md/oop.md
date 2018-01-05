@@ -185,6 +185,7 @@ class Program() {
     {
         foreach (IStaff staff in _staffers)
         {
+            // example of a polymorphism issue. use Tell, Don't Ask 
             if (staff is Manager)
                 Printer.PrintManager(staff as Manager);
             else
@@ -196,14 +197,55 @@ class Program() {
 
 ### LSP Tips
 
-States that client code (calling code) expects that all implementations of a base class should be interchangeable with the base class. That means that all methods of the base class should be implemented.
+#### Use `Tell Don't Ask`.
 
-<!-- Tell Don't Ask
+- "Don't interigate objects for their internals: move behavior to the object." Dont _ASK_ if an Employee is a Manager. The following is an example of what you shouldn't do.
 
-- Don't interigate objects for their internals: move behavior to the object
-- tell the object what you want it to do.
+```c
+class Employee  {
+    string Name;
+    bool IsManager;
+}
 
-Consider refactoring to a new Base Class -->
+class Program() {
+    static List<Employee> _staffers = new List<Employee>(
+        new Employee { Name = "Tom", IsManager = true},
+        new Employee { Name = "Ralphie", IsManager = false)
+    )
+    static void Main()
+    {
+        foreach (Employee e in _staffers) {
+            if (e.IsManager) {} // do whatever manager printing
+            else {} // do whatever employee printing
+        }
+    }
+}
+```
+
+- Consider refactoring to a new Base Class, to `tell` the object what you want it to do.
+
+```c
+class EmployeeBase  {
+    string Name;
+    virtual void Print() { return; } // do employee printing
+}
+
+class Manager : EmployeeBase {
+    override void Print() { return; } // do manager printing
+}
+
+class Program() {
+    static List<EmployeeBase> _staffers = new List<Employee>(
+        new Manager { Name = "Tom" },
+        new EmployeeBase { Name = "Ralphie" } 
+    )
+    static void Main()
+    {
+        foreach (EmployeeBase e in _staffers)
+            e.Print();
+    }
+}
+```
 
 - Given two classes that share a lot of behavior, create a third class (an abstraction) that both can derive from. Ensure substitutability is retained between each class and the new base.
 - Non-substitutable code breaks polymorphism.
@@ -303,4 +345,3 @@ Takeaways
 - remove the word new from your classes.
 - be careful with static methods. Don't force high level modules to depend on low level modules through static method calls.
 - use constructor injection to remove implicit dependencies from your functions
-- 
