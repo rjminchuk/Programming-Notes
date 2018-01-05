@@ -199,6 +199,9 @@ class Program() {
 
 #### Use `Tell Don't Ask`.
 
+<!-- Holywood Principle - "don't call us, we'll call you" -->
+<!-- ......another term for TELL DONT ASK? -->
+
 - "Don't interigate objects for their internals: move behavior to the object." Dont _ASK_ if an Employee is a Manager. The following is an example of what you shouldn't do.
 
 ```c
@@ -266,7 +269,7 @@ The Dependency Inversion Principle states that High-level modules should not dep
 
 - would you solder a lamp to the electical outlet?
 
-what is a dependency?
+### what is a dependency?
 - third party libraries
 - database - wrap in such a way that is not an implicit dependency in your code.
 - file system
@@ -278,7 +281,7 @@ what is a dependency?
 - static methods - any time you add a static method to your code that cannot easily be separated from the calling code.
 - thread.sleep and random - very dificult to write tests for
 
-Traditional programming and dependencies
+<!--Traditional programming and dependencies
 - high level modules call low level modules
 - a User Interface depends on 
   - buisines logic depends on
@@ -289,19 +292,16 @@ Traditional programming and dependencies
 - class instantiation / cal stack logic is scattered through all modules
   - violates the Single Responsibility Principle 
     - because every class that decides who it's colaborators are (through the use of static methods or use of the new keyword) is now responsible for its actual work but also for who determining who it's working with
-    - these are actually separte responsibilities that the single responsibility principle dictates we should separate into seprate classes.
+    - these are actually separte responsibilities that the single responsibility principle dictates we should separate into seprate classes. -->
 
-Class Dependencies:
+### Class Dependencies:
 - class constructors should require any dependencies the class needs
   - these are called expicit dependencies
-  - classes that do not have Implicit (or hidden) dependencies
+  - classes that do not explicitly require dependencies in the constructor, have Implicit (or hidden) dependencies
 
-Holywood Principle - "don't call us, we'll call you"
-
-DI types
+### DI types
 - constructor injector 
-    - dependencies are passed in via the consturctor 
-    - explicitly stating what it needs to run properly 
+    - dependencies are passed in via the consturctor, explicitly stating what it needs to run properly.
     - classes are always in a valid state once constructed
 - propery injection (setter injection)
   - dependencies can be changed at any time during object lifetime
@@ -311,23 +311,24 @@ DI types
   - flexible
   - breaking the method signature might be costly
 
-Refactoring
+### Refactoring
+- reduce responsibilities
 - extract dependencies into interfaces
 - inject implementations of interfaces into the class being refactored 
-- reduce responsibilities
 
-DIP Smells
+### DIP Smells
 - use of new keyword.
 - use of static methods or properties
 
-where do we instantiate these objects
+### where do we instantiate these objects
 - default contsructor
   - create a default constructor that news up a default implementation of each explicit dependency.
   - also known as a poor man's IOC
 - main
   - manually instantiate each object at the start
+- in an IOC Container
 
-IOC Containers
+### IOC Containers
 - responsible for object graph instantiation - determines what is going to be used when an interface is called for.
 - init'd at app startup or in config
 - managed interfaces and the implementation to be used are registered with the container
@@ -341,7 +342,40 @@ IOC Containers
   - windsor
   - funq / munq
 
-Takeaways
+### Takeaways
 - remove the word new from your classes.
 - be careful with static methods. Don't force high level modules to depend on low level modules through static method calls.
 - use constructor injection to remove implicit dependencies from your functions
+
+## Don't Repeat Yourself
+
+refactor messy code. 
+- Use solid principles like LSP, or TELL DONT ASK
+- remove magic strings/numbers. IE: declare strings and other consts at top 
+- and finally fix bad code smells.
+
+here's a way to simplify repetitive STEPS using Actions and the C# `yield` keyword. IE: First log something, then do x, log something else, then do y, log some more, then z...
+
+```c
+// bad: an example of repetitive STEPS.
+MySrervice() {
+    print("extract");
+    extract();
+    print("transform");
+    transform();
+    print("load");
+    load();
+}
+// better: loop through getSteps()
+MySrervice() {
+  foreach (Action step in getSteps()) {
+    print(step.Method.Name);
+    step();
+  }
+  function Action getSteps() {
+    yield return extract;
+    yield return transform;
+    yield return load;
+  }
+}
+```
