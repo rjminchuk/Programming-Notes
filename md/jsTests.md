@@ -1,8 +1,6 @@
-# Unit Testing on MacOS
+# 2017-12-15 Unit Testing on MacOS/Windows
 
-## JavaScriptCore by WebKit
-
-Setup WebKits JavaScript Core on MacOS. Run the script below to setup command line access to js. [more](http://www.phpied.com/javascript-shell-scripting/)
+Setup WebKits JavaScript Core on MacOS. Run the script below to setup command line access to jsc. [more](http://www.phpied.com/javascript-shell-scripting/)
 
 ```sh
 sudo ln -s /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc /usr/local/bin
@@ -15,7 +13,7 @@ cd wwwroot/js
 jsc tests.js
 ```
 
-or on windows.
+CScript on windows.
 
 ```cmd
 cscript tests.js
@@ -27,20 +25,23 @@ cscript tests.js
 
 var tests = '';
 var print = print || function print (msg) { WScript.StdOut.WriteLine(msg); };
-var load = load || function load (file) { tests += new ActiveXObject("Scripting.FileSystemObject").OpenTextFile(file, 1).ReadAll(); };
+var load = load || function load (file) { tests += new ActiveXObject('Scripting.FileSystemObject').OpenTextFile(file, 1).ReadAll(); };
 
 // clear screen
 for (var i = 0; i < 100; i++) { print(''); }
 
-load('helpers/array.forEach.js'); // load polyfills
-load('helpers/mockObjects.js'); // load mock objects
-load('helpers/extend.js'); // load utils
-load('helpers/utcDate.js'); // load utils
+load('helpers/array.forEach.js'); // polyfills
+load('helpers/mockObjects.js'); // objects
+load('helpers/extend.js'); // utils
+load('helpers/utcDate.js'); // utils
 
-load('horizn.js'); // load scripts & tests
-load('horizn.tests.js');
+// scripts & tests
+load('MyUtility.js');
+load('MyUtility.tests.js');
 
-load('helpers/testSuite.js'); // load test suite code, init, and execute.
+// test suite code, init, and execute.
+load('helpers/testSuite.tests.js');
+load('helpers/testSuite.js');
 
 // if cscript, eval the loaded code.
 eval(tests);
@@ -78,10 +79,8 @@ var MockObjects = {
 ```
 
 ```js
-// helpers/testSuite.js
 var TestSuite = TestSuite || {};
-TestSuite = extend(
-    TestSuite, 
+TestSuite = extend( TestSuite, 
     {
         _this: undefined,
         _dependencies: undefined,
@@ -97,7 +96,7 @@ TestSuite = extend(
                 if (pkg.indexOf('TestPackage') !== -1) { 
                     TestSuite[pkg].forEach(function (tests, indx) { 
                         for (var test in tests) { // all tests in the package
-                            if (typeof tests[test] === "function") { 
+                            if (typeof tests[test] === 'function') { 
                                 tests[test](TestSuite._dependencies); 
                             }
                         }
@@ -108,10 +107,17 @@ TestSuite = extend(
             print('tests ran    : ' + TestSuite._summary_cnt);
             print('tests passed : ' + TestSuite._summary_passed);
         },
-        AssertEqual: function(a, b) {
-            TestSuite._summary_cnt++;
-            if (a === b) { TestSuite._summary_passed++; } 
-            else { debug(arguments.callee.caller.name); }
+        AssertEqual: function(a, b, testIsSilent) {
+            return TestSuite._logging((a === b), !!testIsSilent, arguments);
+        },
+        AssertNotEqual: function(a, b, testIsSilent) {
+            return TestSuite._logging((a !== b), !!testIsSilent, arguments);
+        },
+        _logging: function(result, testIsSilent, args) {
+            if (!testIsSilent) { TestSuite._summary_cnt++; }
+            if (result && !testIsSilent) { TestSuite._summary_passed++; }
+            if (!result && !testIsSilent) { print(args.callee.caller.name); }
+            return result;
         }
     }
 );
@@ -120,10 +126,65 @@ TestSuite.TestSuite(MockObjects).RunSuite();
 ```
 
 ```js
-// MyUtility.tests.js
+// testSuite.tests.js
 var TestSuite = TestSuite || {};
 TestSuite = extend(TestSuite, {
-    MyUtilityTestPackage: [
+    TestSuiteTestPackage: [
+        { 
+            AssertEqualEqualEqual_true: function(d) {
+                TestSuite.AssertEqual(true, true);
+            },
+            AssertEqualEqualEqual_false: function(d) {
+                TestSuite.AssertEqual(false, false);
+            },
+            AssertEqualEqualEqual_0: function(d) {
+                TestSuite.AssertEqual(0, 0);
+            },
+            AssertEqualEqualEqual_1: function(d) {
+                TestSuite.AssertEqual('1', '1');
+            },
+            AssertEqualEqualEqual_undefined: function(d) {
+                TestSuite.AssertEqual(undefined, undefined);
+            },
+            AssertNotEqualEqual_false: function(d) {
+                TestSuite.AssertNotEqual('false', false);
+            },
+            AssertNotEqualEqual_true: function(d) {
+                TestSuite.AssertNotEqual('true', true);
+            },
+            AssertNotEqualEqual_0: function(d) {
+                TestSuite.AssertNotEqual('0', 0);
+            },
+            AssertNotEqualEqual_1: function(d) {
+                TestSuite.AssertNotEqual('1', 1);
+            },
+            AssertNotEqualEqual_undefined: function(d) {
+                TestSuite.AssertNotEqual('undefined', undefined);
+            },
+            AssertEqualEqualEqual_shouldfail_when_1_equals_true: function(d) {
+                TestSuite.AssertEqual(
+                    TestSuite.AssertEqual(1, true, true), 
+                    false
+                );
+            },
+            AssertEqualEqualEqual_shouldfail_when_0_equals_false: function(d) {
+                TestSuite.AssertEqual(
+                    TestSuite.AssertEqual(0, false, true), 
+                    false
+                );
+            }
+        }
+    ]
+});
+```
+
+```js
+// MyUtility.tests.js
+var TestSuite = TestSuite || {};
+TestSuite = extend(TestSuite, 
+{
+    MyUtilityTestPackage:
+    [
         { 
             Brightness_Is_Easy_On_The_Eyes_At_6PM: function(d) {
                 TestSuite.AssertEqual(
@@ -136,10 +197,10 @@ TestSuite = extend(TestSuite, {
 ```
 
 ```js
-// MyUtility.tests.js
+// MyUtility.js
 'use strict';
 
-var MyUtility = Horizn || {};
+var MyUtility = MyUtility || {};
 MyUtility.EasyEyes = MyUtility.EasyEyes || {};
 
 MyUtility.EasyEyes = {
@@ -156,86 +217,21 @@ MyUtility.EasyEyes = {
 ```js
 // helpers/extend.js
 // https://gist.github.com/cferdinandi/4f8a0e17921c5b46e6c4
-var extend = function ( defaults, options ) {
-    var extended = {};
-    var prop;
-    for (prop in defaults) {
-        if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
-            extended[prop] = defaults[prop];
-        }
-    }
-    for (prop in options) {
-        if (Object.prototype.hasOwnProperty.call(options, prop)) {
-            extended[prop] = options[prop];
-        }
-    }
-    return extended;
-};
+...
 ```
 
 ```js
 // helper/array.forEach.js
-// Production steps of ECMA-262, Edition 5, 15.4.4.18
-// Reference: http://es5.github.io/#x15.4.4.18
-if (!Array.prototype.forEach) {
-    
-      Array.prototype.forEach = function(callback/*, thisArg*/) {
-    
-        var T, k;
-    
-        if (this == null) {
-          throw new TypeError('this is null or not defined');
-        }
-    
-        // 1. Let O be the result of calling toObject() passing the
-        // |this| value as the argument.
-        var O = Object(this);
-    
-        // 2. Let lenValue be the result of calling the Get() internal
-        // method of O with the argument "length".
-        // 3. Let len be toUint32(lenValue).
-        var len = O.length >>> 0;
-    
-        // 4. If isCallable(callback) is false, throw a TypeError exception. 
-        // See: http://es5.github.com/#x9.11
-        if (typeof callback !== 'function') {
-          throw new TypeError(callback + ' is not a function');
-        }
-    
-        // 5. If thisArg was supplied, let T be thisArg; else let
-        // T be undefined.
-        if (arguments.length > 1) {
-          T = arguments[1];
-        }
-    
-        // 6. Let k be 0.
-        k = 0;
-    
-        // 7. Repeat while k < len.
-        while (k < len) {
-    
-          var kValue;
-    
-          // a. Let Pk be ToString(k).
-          //    This is implicit for LHS operands of the in operator.
-          // b. Let kPresent be the result of calling the HasProperty
-          //    internal method of O with argument Pk.
-          //    This step can be combined with c.
-          // c. If kPresent is true, then
-          if (k in O) {
-    
-            // i. Let kValue be the result of calling the Get internal
-            // method of O with argument Pk.
-            kValue = O[k];
-    
-            // ii. Call the Call internal method of callback with T as
-            // the this value and argument list containing kValue, k, and O.
-            callback.call(T, kValue, k, O);
-          }
-          // d. Increase k by 1.
-          k++;
-        }
-        // 8. return undefined.
-      };
-    }
+// http://es5.github.io/#x15.4.4.18
+...
+```
+
+```js
+// utcDate.js
+function utcDateMaker(NotZeroIndex_Hour) {
+    var d = new Date(Date.UTC(2017,0,1,NotZeroIndex_Hour,0,0) 
+            + new Date(2017,0,1,NotZeroIndex_Hour,0,0).getTime() 
+            - Date.UTC(2017,0,1,NotZeroIndex_Hour,0,0));
+    return d;
+}
 ```
