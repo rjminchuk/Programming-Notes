@@ -1,21 +1,21 @@
-# 2017-12-15 Unit Testing on MacOS/Windows
+#### 2017-12-15 Unit Testing on MacOS/Windows
 
 I wanted to create a cross OS unit testing suite that I could run straight from the command line/terminal. Here is what I found.
 
-## JSC on MacOS
+# JSC on MacOS
 
-### initial setup... 
+###### initial setup... 
 
-Setup WebKits JavaScript Core on MacOS. To get command line access to JSC, Run the script below. [more](http://www.phpied.com/javascript-shell-scripting/)
+Setup WebKits' JavaScript Core on MacOS. To get command line access to JSC, create a symbolic link in your usr directory to the command (working in MacOS 10.13). [more on that](http://www.phpied.com/javascript-shell-scripting/) 
 
 ```sh
 sudo ln -s /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc /usr/local/bin
 ```
 
-### Run Tests
+###### Run Tests
 Run the tests.js script file to see if your tests work. `cd` to the directory, then `jsc tests.js` Doesn't get simpler than that. 
 
-## CScript on windows.
+# CScript on windows.
 
 No setup required, just `cd` to the directory, then `cscript tests.js`
 
