@@ -1,31 +1,33 @@
 # 2017-12-15 Unit Testing on MacOS/Windows
 
-Setup WebKits JavaScript Core on MacOS. Run the script below to setup command line access to jsc. [more](http://www.phpied.com/javascript-shell-scripting/)
+I wanted to create a cross OS unit testing suite that I could run straight from the command line/terminal. Here is what I found.
+
+## JSC on MacOS
+
+### initial setup... 
+
+Setup WebKits JavaScript Core on MacOS. To get command line access to JSC, Run the script below. [more](http://www.phpied.com/javascript-shell-scripting/)
 
 ```sh
 sudo ln -s /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc /usr/local/bin
 ```
 
-Run the tests.js script file to see if your tests work. Doesn't get simpler than that.
+### Run Tests
+Run the tests.js script file to see if your tests work. `cd` to the directory, then `jsc tests.js` Doesn't get simpler than that. 
 
-```sh
-cd wwwroot/js
-jsc tests.js
-```
+## CScript on windows.
 
-CScript on windows.
+No setup required, just `cd` to the directory, then `cscript tests.js`
 
-```cmd
-cscript tests.js
-```
+# The TestSuite
 
 ```js
 // tests.js
 'use strict';
 
-var tests = '';
+var jsCode = '';
 var print = print || function print (msg) { WScript.StdOut.WriteLine(msg); };
-var load = load || function load (file) { tests += new ActiveXObject('Scripting.FileSystemObject').OpenTextFile(file, 1).ReadAll(); };
+var load = load || function load (file) { jsCode += new ActiveXObject('Scripting.FileSystemObject').OpenTextFile(file, 1).ReadAll(); };
 
 // clear screen
 for (var i = 0; i < 100; i++) { print(''); }
@@ -44,7 +46,7 @@ load('helpers/testSuite.tests.js');
 load('helpers/testSuite.js');
 
 // if cscript, eval the loaded code.
-eval(tests);
+eval(jsCode);
 ```
 
 ```js
