@@ -13,3 +13,9 @@ Markdown | Description
 [VIM](md/vim.md) | VIM command line editor notes
 [VS2015](md/vs2015.md) | Visual Studio 2015 notes
 [VSCode](md/vscode.md) | Visual Studio Code notes
+
+# todo
+- create blog post for cicd
+- finish MSQL setup with docker on macos
+- create blog post for MSQL docker container
+- relocate js unit test blog post to bbsuite repo
