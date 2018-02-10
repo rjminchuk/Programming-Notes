@@ -13,7 +13,7 @@ sudo ln -s /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resour
 ```
 
 ###### Run Tests
-Run the tests.js script file to see if your tests work. `cd` to the directory, then `jsc tests.js` Doesn't get simpler than that. 
+Run the tests.js script file to see if your tests work. `cd` to the directory, then `jsc tests.js`. Doesn't get simpler than that. 
 
 # CScript on windows.
 
