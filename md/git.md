@@ -104,7 +104,7 @@ git checkout [branchToPush]
 git branch --unset-upstream
 git pull origin [branchToPush]
 git commit -m 'merge'
-git push --set-upstream origin feature/timers.lpl3189
+git push --set-upstream-to origin/feature/timers.lpl3189
 ```
 
 #### Resolving Rebase issue.
