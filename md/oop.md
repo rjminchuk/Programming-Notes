@@ -71,13 +71,20 @@ public decimal CalculatePrice(CalculatorTypeEnum calcType, List<OrderItems> itme
 }
 ```
 
-2. inheritance / template pattern - child types override behavoir of a base class or interface
+2. inheritance / template method pattern - child types override behavoir of a base class or interface
 3. composition / strategy pattern 
    - Use smaller classes that implement an interface to abstract away the logic of each operation. "Creating an abstraction" is like coming up with an interface.
 
+### example of open closed
+In the example below I'm using a strategy pattern to abstract away the complexities of calculating the price of the items in our cart: `checkout()`.
+Our Cart constuctor takes an ICalculator to calculate each orderItems price. We've closed each concrete implementation of ICalculator, (IE:  not 
+much will change inside of each calculatePrice() function), but we've left ourselves open to extend each implementaiton, say if we wanted 
+to calculateTax().
+
 ```c
-interface ICalculator
-decimal calculatePrice(OrderItem i)
+interface ICalculator {
+    decimal calculatePrice(OrderItem i);
+}
 
 // standard price calculator
 public class StandardCalculator : ICalculator {
@@ -113,7 +120,7 @@ public class Cart {
     public Cart(ICalculator calc) { 
         _calc = calc; 
     }
-    pubblic string Checkout(list<OrderItem> items) {
+    pubblic decimal Checkout(list<OrderItem> items) {
         decimal total = 0;
         foreach (OrderItem item in items)
             total += _calc.calculatePrice(item);
@@ -139,7 +146,7 @@ public static Main(string[] args) {
         new OrderItem() { Nm = "item3", Amt = 7.35, Qty = 3 }
     };
 
-    string result = c.CheckOut(items);
+    decimal result = c.CheckOut(items);
     console.WriteLine(result);
 }
 ```
@@ -163,7 +170,7 @@ The Liskov Substitution Principle helps avoid bad abstractions (and avoids Bad C
 
 ### example of a bad code smell
 
-IStaff should abstract away how to print a Staff Member, and should not rely on an external class to implement how each Staff (employee, manager, etc) prints.
+We should abstract away how to print a Staff Member, and should not rely on an external class to implement how each Staff (employee, manager, etc) prints.
 
 ```c
 static class Printer {
@@ -171,19 +178,17 @@ static class Printer {
     static void PrintEmployee(Employee e) { ... }
 } 
 
-interface IStaff { public string fullname; ... }
-
-class Employee : IStaff { ... }
-class Manager : IStaff { ... }
+class Employee { ... }
+class Manager : Employee { ... }
 
 class Program() {
-    static List<IStaff> _staffers = new List<IStaff>(
+    static List<Employee> _staffers = new List<Employee>(
         new Employee("Tom"),
         new Manager ("Ralphie")
     )
     static void Main()
     {
-        foreach (IStaff staff in _staffers)
+        foreach (Employee staff in _staffers)
         {
             // example of a polymorphism issue. use Tell, Don't Ask 
             if (staff is Manager)
@@ -242,13 +247,38 @@ class Program() {
         new Manager { Name = "Tom" },
         new EmployeeBase { Name = "Ralphie" } 
     )
-    static void Main()
-    {
+    static void Main() {
         foreach (EmployeeBase e in _staffers)
             e.Print();
     }
 }
 ```
+
+<!-- further, relaize the functionality is shared and define the contract for implementation amongst disparate types
+```c
+interface IPrintable { public string Print(); ... }
+
+abstract class StaffBase { 
+   string Name { get; set; };
+   virtual void ApplyPayRate(decimal) { ... };
+}
+class Employee : StaffBase, IPrintable { ... }
+class Manager : StaffBase, IPrintable { ... }
+class Invoice : IPrintable { ... }
+
+class Program() {
+    static List<IPrintable> _printableItems = new List<IPrintable>(
+        new Employee("Tom"),
+        new Manager ("Ralphie"),
+        new Invoice ("FAke Co.", 2449.50)
+    );
+    static void Main() {
+        foreach (IPrintable item in _printableItems) {
+            item.Print();
+        }
+    }
+}
+```-->
 
 - Given two classes that share a lot of behavior, create a third class (an abstraction) that both can derive from. Ensure substitutability is retained between each class and the new base.
 - Non-substitutable code breaks polymorphism.
@@ -379,3 +409,17 @@ MySrervice() {
   }
 }
 ```
+
+## Unordered thoughts and research
+
+### Repository
+The repository pattern allows all of your code to use objects without having to know how the objects are persisted. All of the knowledge of persistence, including mapping from tables to objects, is safely contained in the repository.
+
+### Façade
+The facade pattern is a simplified interface to a larger, possibly more complex code base. The code base may be a single class, or more. The facade just gives you a simple interface to it.
+
+### Abstraction
+'Abstraction' is a general term, meaning to hide the concrete details of something from the outside world.
+
+### Interface
+An Interface defines a contract. Ask yourself whether you are defining a contract (interface) or a shared implementation (base class).
