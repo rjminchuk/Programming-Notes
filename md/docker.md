@@ -50,7 +50,7 @@ apt-get install vim
 
 
 
-# 2018-02-10 - Setting up Microsoft SQL Server in Docker on MacOS
+# 2018.02.23 - Microsoft SQL Server on MacOS with Docker and Dotnet Core
 
 I'm a developer that uses Microsoft technology, and in the last few years, a lot has changed. Dotnet core is gaining traction, and you can even compile and run your .net framework apps on MacOS using the Mono Runtime. `Wow,` I thought. `Everything compiled.` I ran my .net framework app on my MacBook and ran headfirst into my first major setback. Mono (at the time) didn't support SSL sql connections*. After much tinkering, I found that since my DB lives in Azure, and Azure requires SSL, I was SOL.
 
@@ -127,3 +127,6 @@ When you're finished, be sure to turn off your docker container. You'll lose any
 ```bash
 docker container stop sql2017
 ```
+
+# TODO
+- fix intro. it sucks. too much context, not enough explanation of what we're going to actually do.
