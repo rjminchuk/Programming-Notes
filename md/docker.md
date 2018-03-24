@@ -75,7 +75,7 @@ docker run -e 'ACCEPT_EULA=Y' \
 
 #### Connecting to your SQL2017 instance
 
-Firstly, you can use docker to run SQL commands by opening `bash` in your running container, but for our purpose, let's connect to the container from not within our docker container.
+Firstly, you can use docker to run SQL commands by opening `bash` in your running container, but for our purposes, let's connect to the container from outside of our docker container.
 
 ```bash
 ifconfig
@@ -130,3 +130,6 @@ docker container stop sql2017
 
 # TODO
 - fix intro. it sucks. too much context, not enough explanation of what we're going to actually do.
+- add link to .net core nuget package article with installation instructions for dotnet core. [/creating-a-dotnet-core-nuget-package](http://richminchuk.io/creating-a-dotnet-core-nuget-package)
+- add note about subing in your own IP and password. 
+- replace “sql2017” with “sql1” in article commands
