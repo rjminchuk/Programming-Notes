@@ -95,7 +95,7 @@ Great, we've created a new conosole app, and we have all the dependencies we'll 
 vi Program.cs
 ```
 
-Tap `v` and press the down arrow to highlight the program, then Tap `d` to delete it. Then `right click` -> `paste` the following code (_be sure to sub in your own Server IP:Port, and SQL Password_):
+Tap `v` and press the down arrow to highlight the program, then Tap `d` to delete it. Then `right click` -> `paste` the following code:
 
 ```c
 using System;
