@@ -67,14 +67,15 @@ Microsoft has some pretty [decent steps](https://docs.microsoft.com/en-us/sql/li
 Open up `terminal` and pull the docker image. `sudo docker pull microsoft/mssql-server-linux:2017-latest`
 
 #### Create a docker container from an image.
-There are some pretty specific paramerters that need to be passed when creating a container. Each Docker Image has it's own individual parameters based on what you need the image for. This is straight from the Microsoft steps too. Here's what it's doing. `-e` specifies optional parameters that the image itself can use for initial setup. We tell docker that we want to accept the End User License Agreement because we don't want to have to type `YES` a hundred times. We also specify a default password for the SQL server. `-p` tells the docker to expose the containers ports to the host machine (_so we can connect to SQL from our host machine_). `--name` allows us to specify a name for the container so we can easily start and stop it.
+There are some pretty specific paramerters that need to be passed when creating a container. Each Docker Image has it's own individual parameters based on what you need the image for. This is straight from the Microsoft steps too. Here's what it's doing. `-d` tells docker which image it is that we'd like to use, in this case, we'd like to use the mssql server image we just pulled down. `-e` specifies environment variables that the image itself can use for configuration. We'll tell docker that we want to accept the End User License Agreement because we don't want to have to type `YES` a hundred times. We also specify a default password for the SQL server. Next, `-p` tells docker to expose the containers ports to the host machine (_so we can connect to SQL from our host machine_). Lastly, `--name` allows us to specify an easy name for the container so we can quickly start and stop it without having to look up the container name.
 
 ```bash
-docker run -e 'ACCEPT_EULA=Y' \
+docker run \
+   -d microsoft/mssql-server-linux:2017-latest \
+   -e 'ACCEPT_EULA=Y' \
    -e 'MSSQL_SA_PASSWORD=YourSTRONG!Passw0rd' \
    -p 1401:1433 \
-   --name sql1 \
-   -d microsoft/mssql-server-linux:2017-latest
+   --name sql1
 ```
 
 #### Connecting to your SQL2017 instance
@@ -103,7 +104,7 @@ using System.Data.SqlClient;
 
 class Program
 {
-   private static string _connStr = $@"
+   private static string _connStr = @"
       Server=127.0.0.1,1401;
       Database=Master;
       User Id=SA;
@@ -145,6 +146,3 @@ When you're finished, be sure to turn off your docker container. _**You'll lose 
 ```bash
 docker container stop sql1
 ```
-
-# TODO
-- describe  `-d` above.
