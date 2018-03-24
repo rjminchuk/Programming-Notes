@@ -73,14 +73,6 @@ docker run -e 'ACCEPT_EULA=Y' \
    -d microsoft/mssql-server-linux:2017-latest
 ```
 
-Microsoft then suggests you change your password again and provides these commands as well to execute a password change in TSQL from within the container. I vaguely remember this being important. Better run it just in case.
-
-```bash
-sudo docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd \
-   -S localhost -U SA -P 'YourStrong!Passw0rd' \
-   -Q 'ALTER LOGIN SA WITH PASSWORD="YourNewStrong!Passw0rd"'
-```
-
 #### Connecting to your SQL2017 instance
 
 Firstly, you can use docker to run SQL commands by opening `bash` in your running container, but for our purpose, let's connect to the container from not within our docker container.
@@ -104,11 +96,14 @@ using System.Data.SqlClient;
 
 class Program
 {
+   private string _server = "192.168.1.70,1401";
+   private string _pass = "YourSTRONG!Passw0rd";
+   
    static void Main()
    {
-      SqlConnection conn = new SqlConnection("Data Source=(192.168.1.70,1401);Database=Master;Integrated Security=SSPI;User Id=SA;Password=YourStrong!Passw0rd");
+      SqlConnection conn = new SqlConnection($"Server={_server};Database=Master;User Id=SA;Password={_pass}");
       conn.Open();
-      SqlCommand cmd = new SqlCommand("SELECT * FROM master.dbo.sysdatabses", conn);
+      SqlCommand cmd = new SqlCommand("SELECT Name FROM master.dbo.sysdatabases", conn);
       SqlDataReader reader = cmd.ExecuteReader();
       while (reader.Read())
       {
@@ -117,4 +112,18 @@ class Program
       }
    }
 }
+```
+
+Hit the `esc` key, then `shift` + `:`, then type `wq`, and hit the `enter` key. You're out of vi and your program is ready to run.
+
+```bash
+dotnet run
+```
+
+Well look at that, a simple list of all the DBs in your brand spanken new MSSQL Server 2017 docker container, running on your very own local system! 
+
+When you're finished, be sure to turn off your docker container. You'll lose any databases, tables, or data you created when you shut it down, which is fine for this simple example. Microsoft suggests persisting the data before you close the docker container, and suggests a couple ways of doing it; [here](https://docs.microsoft.com/en-us/sql/linux/tutorial-restore-backup-in-sql-server-container), and [here](https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-configure-docker#persist).
+
+```bash
+docker container stop sql2017
 ```
