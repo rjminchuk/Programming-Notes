@@ -15,7 +15,5 @@ Markdown | Description
 [VSCode](md/vscode.md) | Visual Studio Code notes
 
 # todo
+- fix blog post for bbsuite
 - create blog post for cicd
-- finish MSQL setup with docker on macos
-- create blog post for MSQL docker container
-- relocate js unit test blog post to bbsuite repo
