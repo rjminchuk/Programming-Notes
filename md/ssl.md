@@ -45,10 +45,27 @@ dotnet add package Microsoft.AspNetCore.Server.Kestrel.Https -v 1.1.3;
 dotnet restore
 ```
 
-open `program.cs` and configure the following lines
+in dotnet v1, open `program.cs` and configure the following lines
+
+```c#
+if ((Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production").Equals("Development")) {
+   var host = new WebHostBuilder()
+      .UseKestrel(options => { 
+         options.UseHttps("server.pfx", "password"); 
+      })
+      .UseUrls("https://*:5000");
+}
+```
+
+in dotnet 2, it's:
 
 ```c#
 var host = new WebHostBuilder()
-   .UseKestrel(options => { options.UseHttps("server.pfx", ""); })
+   .UseKestrel((hostingContext, options) => {
+      if (!hostingContext.HostingEnvironment.IsDevelopment) return;
+      options.Listen(IPAddress.Loopback, 9002, listenOptions => {
+         listenOptions.UseHttps("certificate.pfx", "password");
+      });
+   })
    .UseUrls("https://*:5000");
 ```
