@@ -23,7 +23,7 @@ When you execute the command, you have a few options. First, whether you want to
 standard directory (dont). Second giving your private key a passphrase. You can skip this, but if you do, 
 you risk exposing any services, that know your public key, to attack if your machine is lost or stolen. If
 you do chose to add a passphrase to your private key, you'll have 
-to [configure git differently](http://www.lmgtfy.com/?q=git+config+ssh+passphrase).
+to [configure ssh differently](http://www.lmgtfy.com/?q=git+config+ssh+with+passphrase).
 
 Copy and paste your public key into your VSTS repo by navigating to `[your user icon]` > `security` > `SSH public keys` > `add`
 
