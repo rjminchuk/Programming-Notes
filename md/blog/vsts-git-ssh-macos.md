@@ -1,4 +1,4 @@
-# Using GIT as a team with VSTS on MacOS
+# Using GIT as a team with VSTS on MacOS with SSH
 
 If you want to commit work to a private git repo with more than one person on your team, You'll want to use 
 SSH to validate connections to your repo. Following is a brief overview of how to setup a VSTS git repo for 
@@ -29,4 +29,13 @@ Copy and paste your public key into your VSTS repo by navigating to `[your user 
 
 Give your public key a descriptive name, like `[your name]` + `[your pc model]` + " Public Key"
 
-In my case `Rich's 2017 MacBook Pro System Default SSH Public Key`
+In my case:
+```Rich's 2017 MacBook Pro Public Key```
+
+Repeat for any other users you'd like to add to your repo.
+
+```
+mkdir ~/Source
+cd ~/Source/
+git clone ssh://myrepo@vs-ssh.visualstudio.com:22/myproj/_ssh/myproj
+```
