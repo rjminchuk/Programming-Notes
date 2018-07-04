@@ -32,7 +32,9 @@ Give your public key a descriptive name, like `[your name]` + `[your pc model]` 
 In my case:
 ```Rich's 2017 MacBook Pro Public Key```
 
-Repeat for any other users you'd like to add to your repo.
+Then paste your Public Key into the key field, and repeat for any other users you'd like to add to your repo.
+
+Bingo. Now you can:
 
 ```
 mkdir ~/Source
