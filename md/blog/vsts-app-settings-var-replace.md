@@ -28,7 +28,13 @@ exit
 Then reopen your terminal. Execute `cat | env` and check that your environment variable is properly set in the list.
 
 ### Configure your build process
+
 replace appsettings.json in release process
 
+_todo: include screenshot_
+
 ### Configure your server for the right environment
+
 set azure application settings
+
+_todo: include screenshot_
