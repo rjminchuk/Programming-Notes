@@ -2,6 +2,24 @@
 
 ```bsh
 dotnet add package Microsoft.TypeScript.MSBuild
+npm install typescript -g
+```
+
+### tsconfig.json
+
+```js
+{
+  "compilerOptions": {
+      "noImplicitAny": true,
+      "noEmitOnError": true,
+      "sourceMap": true,
+      "target": "es5"
+  },
+  "files": [
+      "./wwwroot/js/test.ts"
+  ],
+  "compileOnSave": true
+}
 ```
 
 ### compile typescript
