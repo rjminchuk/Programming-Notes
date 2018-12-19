@@ -8,6 +8,11 @@ git config --global user.email "[email]"
 git config --global user.name "[name]"
 ```
 
+#### Setup vscode as default editor
+```
+git config --global core.editor "code --wait"
+```
+
 #### Create a local git repo.
 ```sh
 rem 'Inialize a local git repository from the current directory' 
@@ -36,6 +41,11 @@ git commit --all -m '[a message]'
 rem 'set the remote repository in which to connect your local repo to'
 git remote add origin https://github.com/rjminchuk/Programming-Notes.git
 git push -u origin master
+```
+
+#### Change the origin from http to ssh
+```
+git remote set-url origin ssh@ssh.richminchuk.io:core
 ```
 
 #### Set an upstream branch for the local branch.
