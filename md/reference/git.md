@@ -175,3 +175,7 @@ reverts the last commit. can be run sequentially for undoing and staging multipl
 ```sh
 git reset --soft HEAD~
 ```
+
+#### Git Smudge, Clean, and .gitattribute
+
+[Customizing-Git-Git-Attributes](https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes)
