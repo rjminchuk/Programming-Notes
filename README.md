@@ -13,3 +13,7 @@ Markdown | Description
 [VIM](md/vim.md) | VIM command line editor notes
 [VS2015](md/vs2015.md) | Visual Studio 2015 notes
 [VSCode](md/vscode.md) | Visual Studio Code notes
+
+# todo
+- fix blog post for bbsuite
+- create blog post for cicd

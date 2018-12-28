@@ -71,13 +71,20 @@ public decimal CalculatePrice(CalculatorTypeEnum calcType, List<OrderItems> itme
 }
 ```
 
-2. inheritance / template pattern - child types override behavoir of a base class or interface
+2. inheritance / template method pattern - child types override behavoir of a base class or interface
 3. composition / strategy pattern 
    - Use smaller classes that implement an interface to abstract away the logic of each operation. "Creating an abstraction" is like coming up with an interface.
 
+### example of open closed
+In the example below I'm using a strategy pattern to abstract away the complexities of calculating the price of the items in our cart: `checkout()`.
+Our Cart constuctor takes an ICalculator to calculate each orderItems price. We've closed each concrete implementation of ICalculator, (IE:  not 
+much will change inside of each calculatePrice() function), but we've left ourselves open to extend each implementaiton, say if we wanted 
+to calculateTax().
+
 ```c
-interface ICalculator
-decimal calculatePrice(OrderItem i)
+interface ICalculator {
+    decimal calculatePrice(OrderItem i);
+}
 
 // standard price calculator
 public class StandardCalculator : ICalculator {
@@ -113,7 +120,7 @@ public class Cart {
     public Cart(ICalculator calc) { 
         _calc = calc; 
     }
-    pubblic string Checkout(list<OrderItem> items) {
+    pubblic decimal Checkout(list<OrderItem> items) {
         decimal total = 0;
         foreach (OrderItem item in items)
             total += _calc.calculatePrice(item);
@@ -139,7 +146,7 @@ public static Main(string[] args) {
         new OrderItem() { Nm = "item3", Amt = 7.35, Qty = 3 }
     };
 
-    string result = c.CheckOut(items);
+    decimal result = c.CheckOut(items);
     console.WriteLine(result);
 }
 ```
@@ -163,7 +170,7 @@ The Liskov Substitution Principle helps avoid bad abstractions (and avoids Bad C
 
 ### example of a bad code smell
 
-IStaff should abstract away how to print a Staff Member, and should not rely on an external class to implement how each Staff (employee, manager, etc) prints.
+We should abstract away how to print a Staff Member, and should not rely on an external class to implement how each Staff (employee, manager, etc) prints.
 
 ```c
 static class Printer {
@@ -171,20 +178,19 @@ static class Printer {
     static void PrintEmployee(Employee e) { ... }
 } 
 
-interface IStaff { public string fullname; ... }
-
-class Employee : IStaff { ... }
-class Manager : IStaff { ... }
+class Employee { ... }
+class Manager : Employee { ... }
 
 class Program() {
-    static List<IStaff> _staffers = new List<IStaff>(
+    static List<Employee> _staffers = new List<Employee>(
         new Employee("Tom"),
         new Manager ("Ralphie")
     )
     static void Main()
     {
-        foreach (IStaff staff in _staffers)
+        foreach (Employee staff in _staffers)
         {
+            // example of a polymorphism issue. use Tell, Don't Ask 
             if (staff is Manager)
                 Printer.PrintManager(staff as Manager);
             else
@@ -196,14 +202,83 @@ class Program() {
 
 ### LSP Tips
 
-States that client code (calling code) expects that all implementations of a base class should be interchangeable with the base class. That means that all methods of the base class should be implemented.
+#### Use `Tell Don't Ask`.
 
-<!-- Tell Don't Ask
+<!-- Holywood Principle - "don't call us, we'll call you" -->
+<!-- ......another term for TELL DONT ASK? -->
 
-- Don't interigate objects for their internals: move behavior to the object
-- tell the object what you want it to do.
+- "Don't interigate objects for their internals: move behavior to the object." Dont _ASK_ if an Employee is a Manager. The following is an example of what you shouldn't do.
 
-Consider refactoring to a new Base Class -->
+```c
+class Employee  {
+    string Name;
+    bool IsManager;
+}
+
+class Program() {
+    static List<Employee> _staffers = new List<Employee>(
+        new Employee { Name = "Tom", IsManager = true},
+        new Employee { Name = "Ralphie", IsManager = false)
+    )
+    static void Main()
+    {
+        foreach (Employee e in _staffers) {
+            if (e.IsManager) {} // do whatever manager printing
+            else {} // do whatever employee printing
+        }
+    }
+}
+```
+
+- Consider refactoring to a new Base Class, to `tell` the object what you want it to do.
+
+```c
+class EmployeeBase  {
+    string Name;
+    virtual void Print() { return; } // do employee printing
+}
+
+class Manager : EmployeeBase {
+    override void Print() { return; } // do manager printing
+}
+
+class Program() {
+    static List<EmployeeBase> _staffers = new List<Employee>(
+        new Manager { Name = "Tom" },
+        new EmployeeBase { Name = "Ralphie" } 
+    )
+    static void Main() {
+        foreach (EmployeeBase e in _staffers)
+            e.Print();
+    }
+}
+```
+
+<!-- further, relaize the functionality is shared and define the contract for implementation amongst disparate types
+```c
+interface IPrintable { public string Print(); ... }
+
+abstract class StaffBase { 
+   string Name { get; set; };
+   virtual void ApplyPayRate(decimal) { ... };
+}
+class Employee : StaffBase, IPrintable { ... }
+class Manager : StaffBase, IPrintable { ... }
+class Invoice : IPrintable { ... }
+
+class Program() {
+    static List<IPrintable> _printableItems = new List<IPrintable>(
+        new Employee("Tom"),
+        new Manager ("Ralphie"),
+        new Invoice ("FAke Co.", 2449.50)
+    );
+    static void Main() {
+        foreach (IPrintable item in _printableItems) {
+            item.Print();
+        }
+    }
+}
+```-->
 
 - Given two classes that share a lot of behavior, create a third class (an abstraction) that both can derive from. Ensure substitutability is retained between each class and the new base.
 - Non-substitutable code breaks polymorphism.
@@ -224,7 +299,7 @@ The Dependency Inversion Principle states that High-level modules should not dep
 
 - would you solder a lamp to the electical outlet?
 
-what is a dependency?
+### what is a dependency?
 - third party libraries
 - database - wrap in such a way that is not an implicit dependency in your code.
 - file system
@@ -236,7 +311,7 @@ what is a dependency?
 - static methods - any time you add a static method to your code that cannot easily be separated from the calling code.
 - thread.sleep and random - very dificult to write tests for
 
-Traditional programming and dependencies
+<!--Traditional programming and dependencies
 - high level modules call low level modules
 - a User Interface depends on 
   - buisines logic depends on
@@ -247,19 +322,16 @@ Traditional programming and dependencies
 - class instantiation / cal stack logic is scattered through all modules
   - violates the Single Responsibility Principle 
     - because every class that decides who it's colaborators are (through the use of static methods or use of the new keyword) is now responsible for its actual work but also for who determining who it's working with
-    - these are actually separte responsibilities that the single responsibility principle dictates we should separate into seprate classes.
+    - these are actually separte responsibilities that the single responsibility principle dictates we should separate into seprate classes. -->
 
-Class Dependencies:
+### Class Dependencies:
 - class constructors should require any dependencies the class needs
   - these are called expicit dependencies
-  - classes that do not have Implicit (or hidden) dependencies
+  - classes that do not explicitly require dependencies in the constructor, have Implicit (or hidden) dependencies
 
-Holywood Principle - "don't call us, we'll call you"
-
-DI types
+### DI types
 - constructor injector 
-    - dependencies are passed in via the consturctor 
-    - explicitly stating what it needs to run properly 
+    - dependencies are passed in via the consturctor, explicitly stating what it needs to run properly.
     - classes are always in a valid state once constructed
 - propery injection (setter injection)
   - dependencies can be changed at any time during object lifetime
@@ -269,23 +341,24 @@ DI types
   - flexible
   - breaking the method signature might be costly
 
-Refactoring
+### Refactoring
+- reduce responsibilities
 - extract dependencies into interfaces
 - inject implementations of interfaces into the class being refactored 
-- reduce responsibilities
 
-DIP Smells
+### DIP Smells
 - use of new keyword.
 - use of static methods or properties
 
-where do we instantiate these objects
+### where do we instantiate these objects
 - default contsructor
   - create a default constructor that news up a default implementation of each explicit dependency.
   - also known as a poor man's IOC
 - main
   - manually instantiate each object at the start
+- in an IOC Container
 
-IOC Containers
+### IOC Containers
 - responsible for object graph instantiation - determines what is going to be used when an interface is called for.
 - init'd at app startup or in config
 - managed interfaces and the implementation to be used are registered with the container
@@ -299,8 +372,54 @@ IOC Containers
   - windsor
   - funq / munq
 
-Takeaways
+### Takeaways
 - remove the word new from your classes.
 - be careful with static methods. Don't force high level modules to depend on low level modules through static method calls.
 - use constructor injection to remove implicit dependencies from your functions
-- 
+
+## Don't Repeat Yourself
+
+refactor messy code. 
+- Use solid principles like LSP, or TELL DONT ASK
+- remove magic strings/numbers. IE: declare strings and other consts at top 
+- and finally fix bad code smells.
+
+here's a way to simplify repetitive STEPS using Actions and the C# `yield` keyword. IE: First log something, then do x, log something else, then do y, log some more, then z...
+
+```c
+// bad: an example of repetitive STEPS.
+MySrervice() {
+    print("extract");
+    extract();
+    print("transform");
+    transform();
+    print("load");
+    load();
+}
+// better: loop through getSteps()
+MySrervice() {
+  foreach (Action step in getSteps()) {
+    print(step.Method.Name);
+    step();
+  }
+  function Action getSteps() {
+    yield return extract;
+    yield return transform;
+    yield return load;
+  }
+}
+```
+
+## Unordered thoughts and research
+
+### Repository
+The repository pattern allows all of your code to use objects without having to know how the objects are persisted. All of the knowledge of persistence, including mapping from tables to objects, is safely contained in the repository.
+
+### Façade
+The facade pattern is a simplified interface to a larger, possibly more complex code base. The code base may be a single class, or more. The facade just gives you a simple interface to it.
+
+### Abstraction
+'Abstraction' is a general term, meaning to hide the concrete details of something from the outside world.
+
+### Interface
+An Interface defines a contract. Ask yourself whether you are defining a contract (interface) or a shared implementation (base class).

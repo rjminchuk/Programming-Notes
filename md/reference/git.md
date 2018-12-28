@@ -8,6 +8,11 @@ git config --global user.email "[email]"
 git config --global user.name "[name]"
 ```
 
+#### Setup vscode as default editor
+```
+git config --global core.editor "code --wait"
+```
+
 #### Create a local git repo.
 ```sh
 rem 'Inialize a local git repository from the current directory' 
@@ -36,6 +41,11 @@ git commit --all -m '[a message]'
 rem 'set the remote repository in which to connect your local repo to'
 git remote add origin https://github.com/rjminchuk/Programming-Notes.git
 git push -u origin master
+```
+
+#### Change the origin from http to ssh
+```
+git remote set-url origin ssh@ssh.richminchuk.io:core
 ```
 
 #### Set an upstream branch for the local branch.
@@ -104,7 +114,7 @@ git checkout [branchToPush]
 git branch --unset-upstream
 git pull origin [branchToPush]
 git commit -m 'merge'
-git push --set-upstream origin feature/timers.lpl3189
+git branch --set-upstream-to origin/feature/timers.lpl3189
 ```
 
 #### Resolving Rebase issue.
@@ -165,3 +175,7 @@ reverts the last commit. can be run sequentially for undoing and staging multipl
 ```sh
 git reset --soft HEAD~
 ```
+
+#### Git Smudge, Clean, and .gitattribute
+
+[Customizing-Git-Git-Attributes](https://git-scm.com/book/en/v2/Customizing-Git-Git-Attributes)
